@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="https://github.com/XP1/Netvibes-Notifier-extension-for-Opera/" version="0.2.3">
+    <name short="Netvibes" dir="ltr" xml:lang="en">Netvibes Notifier</name>
+    <description dir="ltr" xml:lang="en">Displays the number of unread items in your Netvibes account.
+
+        Based on Mickael Blatière (@blat)'s Google Chrome extension.
+    </description>
+    <author href="https://github.com/XP1/Netvibes-Notifier-extension-for-Opera/">XP1</author>
+    <icon src="images/icons/netvibesEnabled_64x64.png"/>
+    <feature name="opera:share-cookies" required="true"/>
+    <access origin="http://netvibes.com/" subdomains="true"/>
+    <access origin="https://netvibes.com/" subdomains="true"/>
+    <preference name="dashboardId" value="null" readonly="false"/>
+    <preference name="willRunUpdater" value="true" readonly="false"/>
+    <preference name="willRetryContinously" value="false" readonly="false"/>
+    <preference name="maximumNumberOfRetries" value="15" readonly="false"/>
+    <preference name="updateInterval" value="1200000" readonly="false"/><!-- 20 minutes. -->
+</widget>

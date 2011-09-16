@@ -1,0 +1,155 @@
+@charset "utf-8";
+
+html
+{
+    background: #e8ecf3 url("/images/backgrounds/options.png") repeat-x; /* Catskill white.*/
+}
+
+#wrapper
+{
+    background: rgba(255, 255, 255, 0.5); /* White. */
+    border: 1px solid rgba(255, 255, 255, 0.33); /* White. */
+    box-shadow: 0 0 10px #98b0c9; /* Rock blue. */
+    color: #1e3853; /* Cello dark blue. */
+
+    margin: 15px auto;
+    max-width: 700px;
+    line-height: 24px;
+    overflow-x: hidden;
+}
+
+header
+{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15); /* Black. */
+    box-shadow: 0 1px #ffffff; /* White. */
+
+    display: block;
+    margin: 0 50px;
+    padding: 45px 50px 15px 50px;
+}
+
+section
+{
+    display: block;
+    padding: 0 50px;
+}
+
+footer
+{
+    border-top: 1px solid #ffffff; /* White. */
+    box-shadow: 0 -1px rgba(0, 0, 0, 0.15); /* Black. */
+
+    display: block;
+    margin: 50px 50px 0 50px;
+    padding: 0 50px;
+}
+
+h1
+{
+    font-size: 24px;
+}
+
+h2
+{
+    margin-top: -3px;
+    margin-bottom: 5px;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+h3
+{
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+fieldset
+{
+    background-color: rgba(150, 160, 200, 0.25); /* Blue bell. */
+    border: none;
+    box-shadow: 0 0 5px #98b0c9; /* Rock blue. */
+
+    position: relative;
+    margin-top: 50px;
+    padding: 10px 20px;
+}
+
+fieldset legend
+{
+    position: absolute;
+    top: -30px;
+    left: 0;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.field
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+fieldset label:not(.radioboxes)
+{
+    margin-right: 10px;
+
+    display: block;
+    float: left;
+    width: 180px;
+    text-align: left;
+}
+
+input[type="text"], input[type="password"], input[type="number"]
+{
+    width: 130px;
+}
+
+fieldset *:disabled
+{
+    opacity: 0.5;
+}
+
+#dashboards select
+{
+    min-width: 140px;
+    max-width: 360px;
+}
+
+/* Side hints */
+.hint
+{
+    display: none;
+
+    transition: background-color 0.2s linear;
+        -ms-transition: background-color 0.2s linear;
+        mso-transition: background-color 0.2s linear;
+        -moz-transition: background-color 0.2s linear;
+        -o-transition: background-color 0.2s linear;
+        -xv-transition: background-color 0.2s linear;
+        -atsc-transition: background-color 0.2s linear;
+        -wap-transition: background-color 0.2s linear;
+        -apple-transition: background-color 0.2s linear;
+        -webkit-transition: background-color 0.2s linear;
+        -khtml-transition: background-color 0.2s linear;
+        prince-transition: background-color 0.2s linear;
+        -ah-transition: background-color 0.2s linear;
+        -hp-transition: background-color 0.2s linear;
+        -ro-transition: background-color 0.2s linear;
+        -rim-transition: background-color 0.2s linear;
+        -tc-transition: background-color 0.2s linear;
+}
+
+.field:hover .hint
+{
+    background: rgba(0, 0, 0, 0.6); /* Black. */
+    color: #ffffff; /* White. */
+    border-radius: 7px;
+
+    position: absolute;
+    display: block;
+    width: 200px;
+    margin: -30px 0 0 340px;
+    padding: 7px 10px 7px 10px;
+
+    z-index: 1; /* Overlap all other elements. */
+}

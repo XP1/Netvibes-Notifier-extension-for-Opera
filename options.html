@@ -1,93 +1,70 @@
-<html>
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
     <head>
-        <title>Netvibes Notifier for Google Chrome</title>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script type="text/javascript" src="application.js"></script>
-        <script type="text/javascript">
-
-            function buildForm() {
-                var wrapper = $('#wrapper').empty().append($('<h3>').text('Select your dashboard:'));
-                $.each(dashboards, function(i, dashboard) {
-                    wrapper.append(
-                        $('<input>', {type: 'radio', id: 'dashboard-' + dashboard.id, value: dashboard.id, name: 'dashboard', checked: (getSelectedDashboard() != false && dashboard.id == getSelectedDashboard().id ? 'checked' : '')})
-                    ).append(
-                        $('<label>', {for: 'dashboard-' + dashboard.id}).text(dashboard.title)
-                    );
-                });
-                wrapper.append(
-                    $('<button>', {id: 'save-button'}).text('Save').click(saveForm)
-                );
-            }
-
-            function saveForm() {
-                var button = $('#save-button')
-                    .attr({disabled: 'disabled'}).text('In progress...');
-                localStorage['dashboard'] = $('input[type=radio][name=dashboard]:checked')[0].value;
-                button.attr({disabled: ''}).text('Saved!');
-                refresh();
-                return false;
-            }
-
-            function signIn() {
-                $('#wrapper').empty().append($('<p>').html('<strong>Error:</strong> You have to <a href="' + HOME_URL + '/signin">sign-in</a> before.'));
-            }
-
-            function init() {
-                getDashboards(buildForm, signIn);
-            }
-
-            $(function() {
-                init();
-            });
-        </script>
-        <style>
-            body {
-                font-family: arial, sans-serif;
-                font-size: 12px;
-                background: #555;
-                padding: 0;
-                margin: 0;
-                color: #fff;
-            }
-            img {
-                float: left;
-                padding: 8px;
-                width: 32px;
-            }
-            h1 {
-                background: #333;
-                margin: 0;
-                padding: 8px;
-            }
-            h3 {
-                padding: 8px 0;
-                margin: 8px;
-            }
-            p {
-                margin-left: 8px;
-            }
-            a {
-                color: #fff;
-            }
-            input {
-                display: block;
-                margin-left: 8px;
-                clear: both;
-                float: left;
-            }
-            label {
-                display: block;
-                padding-top: 2px;
-            }
-            button {
-                display: block;
-                margin: 16px 8px;
-            }
-        </style>
+        <meta charset="utf-8"/>
+        <title id="title">Netvibes Notifier</title>
+        <base target="_blank"/>
+        <link rel="stylesheet" href="/css/general.css"/>
+        <link rel="stylesheet" href="/css/options.css"/>
     </head>
     <body>
-        <img src="icon.png" />
-        <h1>Netvibes Notifier</h1>
-        <div id="wrapper">Loading...</div>
+        <noscript class="centerText">
+        <p>JavaScript must be enabled to save settings.</p>
+        </noscript>
+
+        <div id="wrapper">
+            <header class="centerText">
+                <img src="/images/icons/netvibesEnabled_64x64.png" alt="Netvibes Notifier"/>
+                <h1 id="name">Netvibes Notifier</h1>
+                <h2>Made by <a href="https://github.com/blat/"><span class="author">Mickael Blatière</span></a> (@<a href="https://github.com/blat/"><span class="author">blat</span></a>).</h2>
+                <h2>Ported by @<a href="https://github.com/XP1/"><span class="porter">XP1</span></a>.</h2>
+            </header>
+
+            <section>
+                <p>Displays the number of unread items in your Netvibes account.</p>
+                <p>Based on <a href="https://github.com/blat/"><span class="author">Mickael Blatière</span></a> (@<a href="https://github.com/blat/"><span class="author">blat</span></a>)'s <a href="https://github.com/blat/chrome-netvibes-notifier-extension/">Google Chrome extension</a>.</p>
+
+                <form id="optionsForm" target="_self">
+                    <fieldset>
+                        <legend>Dashboard</legend>
+                        <div id="dashboards" class="field">Loading...</div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Updater</legend>
+                        <div class="field">
+                            <label>Updater:</label><input type="radio" id="updaterEnable" name="willRunUpdater" value="true" checked/> <label class="radioboxes" for="updaterEnable">Enable</label> <input type="radio" id="updaterDisable" name="willRunUpdater" value="false"/> <label class="radioboxes" for="updaterDisable">Disable</label>
+                            <p class="hint">The updater checks for new, unread notifications and updates the toolbar button with the number of notifications.</p>
+                        </div>
+                        <div class="field">
+                            <label>Retry continously:</label><input type="radio" id="retryContinouslyEnable" name="willRetryContinously" value="true"/> <label class="radioboxes" for="retryContinouslyEnable">Enable</label> <input type="radio" id="retryContinouslyDisable" name="willRetryContinously" value="false" checked/> <label class="radioboxes" for="retryContinouslyDisable">Disable</label>
+                            <p class="hint">If enabled, the updater will check continously for new, unread notifications even if it exceeds the maximum number of retries. If disabled, the updater will obey and give up after it reaches the maximum number of retries, and the updater will also disable itself.</p>
+                        </div>
+                        <div class="field">
+                            <label for="maximumNumberOfRetries">Maximum number of retries:</label><input type="number" id="maximumNumberOfRetries" name="maximumNumberOfRetries" value="15" min="0" step="1"/>
+                            <p class="hint">The maximum number of retries will apply when retry continously is disabled. After the updater has reached the maximum number of retries consecutively, the updater will disable itself and no longer check for new, unread notifications.</p>
+                        </div>
+                        <div class="field">
+                            <label for="updateInterval">Update interval:</label><input type="number" id="updateInterval" name="updateInterval" value="1200000" min="1000" step="1"/>
+                            <p class="hint">In milliseconds, the interval is the time between update requests. By default, the interval is 20 minutes.</p>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <p class="centerText">
+                            <input type="submit" id="save" value="Save"/>
+                            <input type="reset" id="reset" value="Reset"/>
+                        </p>
+                    </fieldset>
+                </form>
+            </section>
+
+            <footer class="centerText">
+                <p>Powered by the <a href="http://www.opera.com/">Opera browser</a>.</p>
+            </footer>
+        </div>
+        <script src="/js/general.js"></script>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/options.js"></script>
     </body>
 </html>
